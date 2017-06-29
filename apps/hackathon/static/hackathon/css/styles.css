@@ -1,5 +1,5 @@
 label {
-    display: block;
+    display: inline-block;
 }
 
 .error {
@@ -7,15 +7,16 @@ label {
 }
 
 .container{
-    width: 600px;
+    width: 500px;
     margin: auto;
+    padding-top: 20px;
     text-align: center;
-    background-color: #F1F4F8;
-    border: 3px solid black;
+    background-color: white;
+    border: 2px solid black;
 }
 
 h2{
-    background: linear-gradient(#3C4C5B, rgb(18, 32, 51) );
+    background: linear-gradient(gray, rgb(20, 32, 51) );
     color: white;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -30,6 +31,6 @@ input {
 
 button {
     padding: 10px 10px 10px 10px;
-    margin-bottom: 10px;
-    width: 100px;
+    margin-bottom: 5px;
+    width: 80px;
 }
