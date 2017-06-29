@@ -11,7 +11,7 @@ class UserManager(models.Manager):
     def register(self, post):
         first_name = post["first"]
         last_name = post["last"]
-        alias = post['alias']
+        username = post['username']
         email = post["email"].lower()
         password = post["password"]
         confirm = post["confirm"]
@@ -28,8 +28,8 @@ class UserManager(models.Manager):
         if not NAME_REGEX.match(last_name) or len(last_name) < 2:
             errors.append('Last Name can only contain letters and must have at least 2 characters')
             successful = False
-        if not len(alias) > 0:
-            errors.append('Alias cannot be empty')
+        if not len(username) > 0:
+            errors.append('Username cannot be empty')
             successful = False
         if not EMAIL_REGEX.match(email) or len(email) < 1:
             errors.append('Email is not valid')
@@ -47,7 +47,7 @@ class UserManager(models.Manager):
         # only pass back the strings that aren't ""
         if successful == True:
             hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-            user = User.objects.create(first_name=first_name, last_name=last_name, alias = alias,
+            user = User.objects.create(first_name=first_name, last_name=last_name, username = username,
                                         email=email, password=hashed)
             passedValues = [True, user.id]
             return passedValues
@@ -62,7 +62,7 @@ class UserManager(models.Manager):
         logged = [False]
         passedValues = []
         if User.objects.filter(email=email).exists():
-            
+
             user = User.objects.get(email = email)
             # print "input password = " + bcrypt.hashpw(password.encode(), user.password.encode())
             # print "saved password = " + bcrypt.hashpw(user.password.encode(), user.password.encode())
@@ -74,7 +74,7 @@ class UserManager(models.Manager):
 
 
 class User(models.Model):
-    alias = models.CharField(max_length = 30)
+    username = models.CharField(max_length = 30)
     first_name = models.CharField(max_length = 30)
     last_name = models.CharField(max_length=30)
     email = models.CharField(max_length=30)
