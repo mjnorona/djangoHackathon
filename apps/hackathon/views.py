@@ -1,6 +1,7 @@
 import bcrypt
 from django.contrib import messages
 from django.shortcuts import render, redirect
+from django.db.models import Count
 from .models import User, Prompt, Solution, Collaboration, Like, Following
 from django.db.models import Count
 
@@ -43,11 +44,12 @@ def home(request):
     if 'id' in request.session:
         text = "How do you improve an umbrella?"
         
-        prompt = Prompt.objects.get(id = 13)
+        prompt = Prompt.objects.filter(content = text)
         
         user = User.objects.get(id = request.session['id'])
         content = {
             'first_name': user.first_name,
+            'user': user,
             'prompt': prompt
         }
         return render(request, 'hackathon/home.html', content)
@@ -98,3 +100,18 @@ def like(request, id):
 def logout(request):
     request.session.clear()
     return redirect('/')
+
+def profile(request, id):
+    if 'id' in request.session:
+        user = User.objects.get(id = id)
+        solution = Solution.objects.filter(user__id = user.id)
+        context = {
+            "user": user,
+            "solutions": solution
+        }
+        Prompt.objects.filter(id = 1).update(content = "What are the ways to eradicate poverty?" )
+        Solution.objects.filter(id = 2).update(content = "djkfdskfjls ")
+        for i in Solution.objects.all():
+            print i.content
+
+    return render(request, 'hackathon/profile.html', context)
