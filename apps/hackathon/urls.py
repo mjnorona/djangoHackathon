@@ -6,4 +6,7 @@ urlpatterns = [
     url(r'^register$', views.register),
     url(r'^login', views.login),
     url(r'^home$', views.home),
+    url(r'^submit/(?P<id>\d+)$', views.submit, name = "submit"),
+    url(r'^solutions/(?P<id>\d+)$', views.solutions, name = "solutions"),
+    url(r'^logout$', views.logout)
 ]
