@@ -7,7 +7,21 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
+        <div class = "header">
+                <h4>{{user.username}}</h4>
+                <a href="#">Feed</a>
+                <a href="#">Profile</a>
+                <button><a href = "/logout">Logout</a></button>
+            </div>
         <h1>Solutions to "{{prompt.content}}"</h1>
+        {% for solution in solutions %}
+            <div class = "solution">
+                <a href="">{{solution.user.username}}</a>
+                <h3>{{solution.content}}</h3>
+                <a href="#">{{solution.num_likes}}</a>
+                <button><a href="/like/{{solution.id}}">Like</a></button>
+            </div>
+        {% endfor %}
         
     </body>
 </html>

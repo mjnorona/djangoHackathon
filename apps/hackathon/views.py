@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.db.models import Count
 from .models import User, Prompt, Solution, Collaboration, Like, Following
+from django.db.models import Count
 
 # Create your views here.
 def index(request):
@@ -62,9 +63,27 @@ def submit(request, id):
     return redirect('solutions', id = id)
 
 def solutions(request, id):
-    prompt = Prompt.objects.get(id = id)
-    content = {'prompt': prompt}
-    return render(request, 'hackathon/solutions.html', content)
+    if 'id' in request.session:
+        user = User.objects.get(id = request.session['id'])
+        prompt = Prompt.objects.get(id = id)
+        solutions = Solution.objects.filter(prompt = prompt).annotate(num_likes = Count('likes')).order_by('-num_likes')
+        content = {
+            'prompt': prompt,
+            'solutions': solutions,
+            'user': user
+        }
+        return render(request, 'hackathon/solutions.html', content)
+    else:
+        return render('/home')
+
+def like(request, id):
+    print "solution " + id
+    user = User.objects.get(id = request.session['id'])
+    solution = Solution.objects.get(id = id)
+
+    like = Like.objects.create(user = user, solution = solution)
+    print 'prompt ' + str(solution.prompt.id)
+    return redirect('solutions', id = solution.prompt.id)
 
 def logout(request):
     request.session.clear()
