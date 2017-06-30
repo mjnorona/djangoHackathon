@@ -72,6 +72,18 @@ class UserManager(models.Manager):
                 logged = [True, user.first_name, user.id]
         return logged
 
+class SolutionManager(models.Manager):
+    def createSolution(self, post, userID, promptID):
+        one = post['one']
+        two = post['two']
+        three = post['three']
+
+        user = User.objects.get(id = userID)
+        prompt = Prompt.objects.get(id = promptID)
+
+        Solution.objects.create(content = one, user = user, prompt = prompt)
+        Solution.objects.create(content = two, user = user, prompt = prompt)
+        Solution.objects.create(content = three, user = user, prompt = prompt)
 
 class User(models.Model):
     username = models.CharField(max_length = 30)
@@ -95,6 +107,7 @@ class Solution(models.Model):
     prompt = models.ForeignKey(Prompt, related_name = "solutions")
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now_add=True)
+    objects = SolutionManager()
 
 class Collaboration(models.Model):
     name = models.CharField(max_length = 30)
@@ -104,3 +117,12 @@ class Collaboration(models.Model):
 class Like(models.Model):
     user = models.ForeignKey(User, related_name = "likes")
     solution = models.ForeignKey(Solution, related_name = "likes")
+<<<<<<< HEAD
+=======
+
+class Following(models.Model):
+    user = models.ForeignKey(User, related_name = "following")
+    following_user = models.ForeignKey(User, related_name = "follower")
+
+
+>>>>>>> 0fecd586ce4cffda79c3d5a5f8897f12f612671a
