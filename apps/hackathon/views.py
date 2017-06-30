@@ -92,13 +92,15 @@ def logout(request):
 def profile(request, id):
     if 'id' in request.session:
         user = User.objects.get(id = id)
-        solution = Solution.objects.filter(user__id = user.id)
+        solutions = Solution.objects.filter(user__id = user.id)
+        likes = Like.objects.filter(solution__id = 1)
+        print likes
         context = {
             "user": user,
-            "solutions": solution
+            "solutions": solutions,
+            "likes": likes
         }
-        Prompt.objects.filter(id = 1).update(content = "What are the ways to eradicate poverty?" )
-        Solution.objects.filter(id = 2).update(content = "djkfdskfjls ")
+
         for i in Solution.objects.all():
             print i.content
 

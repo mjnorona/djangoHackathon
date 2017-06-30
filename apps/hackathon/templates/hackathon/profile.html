@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="{% static 'hackathon/css/profilestyles.css' %}" media="screen" title="no title"  charset="utf-8">
     <style>
         *{
-    margin: 0;
-    padding: 0;
-}
+            margin: 0;
+            padding: 0;
+            font-family: Helvetica, Arial, sans-serif;
+        }
 
 .container{
-    width: 1100px;
+    width: 970px;
     margin: auto;
 }
 
@@ -30,33 +31,70 @@ img{
     vertical-align: top;
     margin-top: 30px;
 }
+
+.solutions, .collab{
+    margin: auto;
+    text-align: center;
+    border: 1px solid grey;
+    margin-bottom: 10px;
+    
+}
+
+.eachsol{
+    margin: 10px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.logout{
+    vertical-align: top;
+    margin-left: 700px;
+    position: relative;
+    top: 20px;
+}
+
+a{
+    text-decoration: none;
+    font-size: 1em;
+
+}
+
+
+
+
     </style>
 </head>
 <body>
     <div class = "container">
         <div class="header">
-            <img src="http://www5.clikpic.com/andreacoltman/images/Facebook_girl_profile_web.jpg" width="70" height="77" alt="profile picture of user">
+            <img src="http://cdn2.hercampus.com/jane%20doe.jpg" width="70" height="77" alt="profile picture of user">
             <div class="info">
                 <p>User: {{user.username}}</p>
                 <p>Points: {{user.points}}</p>
             </div>
+            <a class="logout" href="/logout">Logout</a>
         </div>
-        <div>
-            <h2>Top 3 High-Rated Solutions</h2>
+        <div class="solutions">
+            <h1>Top 3 High-Rated Solutions</h1>
             {% for i in solutions%}
-                <p>{{i.prompt.content}}</p>
-                <p>{{i.content}}</p>
-                <p>{{i.points}}</p>
-                <a href="/like/{{i.id}}">Like</a>
+                <div class="eachsol">
+                    <p>{{i.prompt.content}}</p>
+                    <p>{{i.content}}</p>
+                    <p>{{i.likes.count}}</p>
+                    <a href="/like/{{i.id}}">Like</a>
+                </div>
             {% endfor %}
         </div>
         <div>
-            <p>Collaborations</p>
+        <div class="collab">
+            <h1>Collaborations</h1>
             <ul>
                 {% for i in collabs %}
                     <li>{{i}}</li>
                 {% endfor %}
             </ul>
+        </div>
 
         </div>
     </div>
