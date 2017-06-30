@@ -1,7 +1,7 @@
 import bcrypt
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from .models import User
+from .models import User, Prompt, Solution, Collaboration, Like, Following
 
 # Create your views here.
 def index(request):
@@ -39,4 +39,31 @@ def login(request):
             return redirect('/')
 
 def home(request):
-    return render(request, 'hackathon/home.html')
+    if 'id' in request.session:
+        text = "How do you improve an umbrella?"
+        
+        prompt = Prompt.objects.get(id = 13)
+        
+        user = User.objects.get(id = request.session['id'])
+        content = {
+            'first_name': user.first_name,
+            'prompt': prompt
+        }
+        return render(request, 'hackathon/home.html', content)
+    else:
+        return redirect('/')
+
+def submit(request, id):
+    if request.method == "POST":
+        print id
+        Solution.objects.createSolution(request.POST, request.session['id'], id)
+    return redirect('solutions', id = id)
+
+def solutions(request, id):
+    prompt = Prompt.objects.get(id = id)
+    content = {'prompt': prompt}
+    return render(request, 'hackathon/solutions.html', content)
+
+def logout(request):
+    request.session.clear()
+    return redirect('/')
