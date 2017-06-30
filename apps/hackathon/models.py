@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from social_django.models import AbstractUserSocialAuth, UserSocialAuth, Nonce, Association, Code, DjangoStorage
 from django.db import models
 import re, bcrypt
 
@@ -80,7 +81,7 @@ class UserManager(models.Manager):
         password = post['password']
         confirm = post['confirm']
         valid = []
-        
+
         user = User.objects.get(id = userID)
         # if not user.password == bcrypt.hashpw(current.encode(), user.password.encode()):
         #     return False
@@ -95,7 +96,7 @@ class UserManager(models.Manager):
         #         hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
         #         user.update(password = hashed)
         #     return True
-             
+
 
 class SolutionManager(models.Manager):
     def createSolution(self, post, userID, promptID):

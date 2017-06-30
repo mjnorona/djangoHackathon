@@ -33,6 +33,7 @@
             <label for = "logpassword">Password:</label><input type = "password" id = "logpassword" name = "password">
             <input type = "hidden" name = "action" value = "login">
             <button type = "submit">Submit</button>
+             <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a>
         </form>
     </div>
 </body>

@@ -1,8 +1,11 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
+from social_django.urls import urlpatterns, app_name
 from . import views
+
 
 urlpatterns = [
     url(r'^$', views.index),
+    url(r'^', include('social.apps.django_app.urls', namespace='social')),
     url(r'^register$', views.register),
     url(r'^login', views.login),
     url(r'^home$', views.home),

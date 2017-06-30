@@ -4,28 +4,38 @@ from django.shortcuts import render, redirect
 from django.db.models import Count
 from .models import User, Prompt, Solution, Collaboration, Like, Following
 from django.db.models import Count
+from django.shortcuts import render_to_response
+from django.template.context import RequestContext
+from social_django.views import auth, complete, disconnect, _do_login
+
 
 # Create your views here.
 def index(request):
-    
+
     list = User.objects.all()
     # for i in list:
     #     print i.email
     return render(request, 'hackathon/index.html')
+
+def index(request):
+   context = RequestContext(request,
+                           {'request': request,
+                            'user': request.user})
+   return render_to_response('hackathon/index.html',context=context)
 
 
 def register(request):
 
     if request.method == "POST":
         values = User.objects.register(request.POST)
-        if values[0]: 
+        if values[0]:
             request.session['id'] = values[1]
             return redirect("/home")
         else:
             for error in values[1]:
                 messages.error(request, error)
             return redirect("/")
-    
+
 
 
 def login(request):
@@ -33,7 +43,7 @@ def login(request):
         login = User.objects.login(request.POST)
         # print login
         if login[0]:
-            
+
             request.session['id'] = login[2]
             return redirect('/home')
         else:
@@ -43,9 +53,9 @@ def login(request):
 def home(request):
     if 'id' in request.session:
         text = "How do you improve an umbrella?"
-        
+
         prompt = Prompt.objects.filter(content = text)
-        
+
         user = User.objects.get(id = request.session['id'])
         content = {
             'first_name': user.first_name,
