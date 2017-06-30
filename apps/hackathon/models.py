@@ -84,7 +84,6 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True)
     objects = UserManager()
 
-
 class Prompt(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add = True)
@@ -105,5 +104,3 @@ class Collaboration(models.Model):
 class Like(models.Model):
     user = models.ForeignKey(User, related_name = "likes")
     solution = models.ForeignKey(Solution, related_name = "likes")
-
-
