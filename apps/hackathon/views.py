@@ -56,6 +56,18 @@ def home(request):
     else:
         return redirect('/')
 
+def edit(request):
+    if 'id' in request.session:
+        return render(request, 'hackathon/edit.html')
+    else:
+        return redirect('/')
+
+def edit_submit(request):
+    if request.method == "POST":
+        edit = User.objects.edit(request.POST, request.session['id'])
+        # if not edit:
+        #     messages.error('Current password is incorrect')
+        return redirect('/edit')
 def submit(request, id):
     if request.method == "POST":
         print id

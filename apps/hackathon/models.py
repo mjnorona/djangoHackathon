@@ -72,6 +72,31 @@ class UserManager(models.Manager):
                 logged = [True, user.first_name, user.id]
         return logged
 
+    def edit(self, post, userID):
+        email = post['email']
+        first = post['first']
+        last = post['last']
+        current = post['current']
+        password = post['password']
+        confirm = post['confirm']
+        valid = []
+        
+        user = User.objects.get(id = userID)
+        # if not user.password == bcrypt.hashpw(current.encode(), user.password.encode()):
+        #     return False
+        # else:
+        #     if not len(first) == 0:
+        #         User.objects.get(id = userID).update(first_name = first)
+        #     if not len(last) == 0:
+        #         user.update(last_name = last)
+        #     if not len(email) == 0:
+        #         user.update(email = email)
+        #     if not len(password) == 0:
+        #         hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+        #         user.update(password = hashed)
+        #     return True
+             
+
 class SolutionManager(models.Manager):
     def createSolution(self, post, userID, promptID):
         one = post['one']
@@ -95,7 +120,6 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now_add=True)
     objects = UserManager()
-
 
 class Prompt(models.Model):
     content = models.TextField()
@@ -122,5 +146,3 @@ class Like(models.Model):
 class Following(models.Model):
     user = models.ForeignKey(User, related_name = "following")
     following_user = models.ForeignKey(User, related_name = "follower")
-
-
