@@ -117,12 +117,7 @@ class Collaboration(models.Model):
 class Like(models.Model):
     user = models.ForeignKey(User, related_name = "likes")
     solution = models.ForeignKey(Solution, related_name = "likes")
-<<<<<<< HEAD
-=======
 
 class Following(models.Model):
     user = models.ForeignKey(User, related_name = "following")
     following_user = models.ForeignKey(User, related_name = "follower")
-
-
->>>>>>> 0fecd586ce4cffda79c3d5a5f8897f12f612671a
