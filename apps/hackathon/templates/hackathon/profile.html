@@ -38,12 +38,13 @@ img{
             <img src="http://www5.clikpic.com/andreacoltman/images/Facebook_girl_profile_web.jpg" width="70" height="77" alt="profile picture of user">
             <div class="info">
                 <p>User: {{user.username}}</p>
-                <p>Points: {{}}</p>
+                <p>Points: {{user.points}}</p>
             </div>
         </div>
         <div>
             <h2>Top 3 High-Rated Solutions</h2>
             {% for i in solutions%}
+                <p>{{i.prompt.content}}</p>
                 <p>{{i.content}}</p>
                 <p>{{i.points}}</p>
                 <a href="/like/{{i.id}}">Like</a>

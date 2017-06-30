@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^home$', views.home),
     url(r'^submit/(?P<id>\d+)$', views.submit, name = "submit"),
     url(r'^solutions/(?P<id>\d+)$', views.solutions, name = "solutions"),
-    url(r'^logout$', views.logout)
+    url(r'^logout$', views.logout),
+    url(r'^profile/(?P<id>\d+)$', views.profile)
 ]
