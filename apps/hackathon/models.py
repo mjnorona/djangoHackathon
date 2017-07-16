@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 from social_django.models import AbstractUserSocialAuth, UserSocialAuth, Nonce, Association, Code, DjangoStorage
 from django.db import models
+from django.views.decorators.csrf import csrf_exempt
+
 import re, bcrypt
 
 NAME_REGEX = re.compile(r'[a-zA-Z]')

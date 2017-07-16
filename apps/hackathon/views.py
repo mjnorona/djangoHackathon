@@ -7,6 +7,7 @@ from django.db.models import Count
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from social_django.views import auth, complete, disconnect, _do_login
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.

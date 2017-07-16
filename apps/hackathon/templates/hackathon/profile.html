@@ -38,7 +38,7 @@ img{
     text-align: center;
     border: 1px solid grey;
     margin-bottom: 10px;
-    
+
 }
 
 .eachsol{
@@ -61,16 +61,11 @@ a{
 
 }
 
-
-
-
     </style>
 </head>
 <body>
-<<<<<<< HEAD
         <div>
             <h2>Top 3 High-Rated Solutions</h2>
-=======
     <div class = "container">
         <div class="header">
             <img src="http://cdn2.hercampus.com/jane%20doe.jpg" width="70" height="77" alt="profile picture of user">
@@ -82,7 +77,7 @@ a{
         </div>
         <div class="solutions">
             <h1>Top 3 High-Rated Solutions</h1>
->>>>>>> 94abe9b8b94e8edbaacb6fe63427bd8d02d2f565
+
             {% for i in solutions%}
                 <div class="eachsol">
                     <p>{{i.prompt.content}}</p>
@@ -100,11 +95,9 @@ a{
                     <li>{{i}}</li>
                 {% endfor %}
             </ul>
-<<<<<<< HEAD
-=======
+
         </div>
 
->>>>>>> 94abe9b8b94e8edbaacb6fe63427bd8d02d2f565
         </div>
     </div>
     <div id="fb-root"></div>
